@@ -1,9 +1,8 @@
 import { configureStore } from '@reduxjs/toolkit';
-import breakReducer from '../slices/breakSlice';
-import sessionReducer from '../slices/sessionSlice';
+import countReducer from '../slices/countSlice';
 
 export const store = configureStore({
-  reducer: { break: breakReducer, session: sessionReducer },
+  reducer: { count: countReducer},
 });
 
 // Infer the `RootState` and `AppDispatch` types from the store itself
