@@ -13,7 +13,7 @@ const Timer: React.FC = () => {
   const [intervalId, setIntervalId] = useState<number | null>(null);
 
   const isRunning = intervalId != null;
-  const startTimer = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+  const startTimer = () => {
     if (isRunning) {
       window.clearInterval(intervalId);
       setIntervalId(null);
@@ -31,6 +31,13 @@ const Timer: React.FC = () => {
   const formatedBreak = moment().minutes(breakTime).format('mm');
   const formatedSeconds = moment().seconds(seconds).format('ss');
 
+  const resetTimer = () => {
+    dispatch(reset());
+    if (isRunning) {
+      window.clearInterval(intervalId);
+      setIntervalId(null);
+    }
+  };
   return (
     <div>
       <div id='timer-label'>{session !== 0 ? 'Session' : 'Break'}</div>
@@ -41,7 +48,7 @@ const Timer: React.FC = () => {
       <button id='start_stop' onClick={startTimer}>
         {isRunning ? 'Stop' : 'Start'}
       </button>
-      <button id='reset' onClick={() => dispatch(reset())}>
+      <button id='reset' onClick={resetTimer}>
         Reset
       </button>
       {/* <button id='reset' onClick={(e) => startTimer(e)}>
