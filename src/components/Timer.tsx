@@ -1,7 +1,6 @@
 import React, { useState, useRef } from 'react';
 import { RootState } from '../store';
 import { useSelector, useDispatch } from 'react-redux';
-import moment from 'moment';
 import { start_stop, reset } from '../slices/countSlice';
 
 const Timer: React.FC = () => {
@@ -27,17 +26,20 @@ const Timer: React.FC = () => {
       setIntervalId(newIntervalId);
     }
   };
-  const formatedMinutes = moment().minutes(session).format('mm');
-  const formatedBreak = moment().minutes(breakTime).format('mm');
-  const formatedSeconds = moment().seconds(seconds).format('ss');
 
-  formatedMinutes === '00' && audioRef.current?.play();
-  
+  const formatedMinutes: number | string =
+    session < 10 ? '0' + session : session;
+  const formatedBreak: number | string =
+    breakTime < 10 ? '0' + breakTime : breakTime;
+  const formatedSeconds: number | string =
+    seconds < 10 ? '0' + seconds : seconds;
+
+  formatedMinutes === '00' && audioRef?.current?.play();
+
   const resetTimer = () => {
-    const sound = audioRef.current;
+    const sound: any = audioRef.current;
     sound?.pause();
-    let currentTime: number | undefined = sound?.currentTime;
-    currentTime = 0;
+    sound.currentTime = 0;
     dispatch(reset());
     if (isRunning) {
       window.clearInterval(intervalId);
