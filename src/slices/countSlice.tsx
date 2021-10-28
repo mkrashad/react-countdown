@@ -9,7 +9,7 @@ export interface CountState {
 const initialState: CountState = {
   break: 1,
   session: 1,
-  seconds: 3,
+  seconds: 0,
 };
 
 export const countSlice = createSlice({
@@ -29,7 +29,7 @@ export const countSlice = createSlice({
       state.session = state.session <= 1 ? state.session : state.session - 1;
     },
     start_stop: (state) => {
-      state.seconds = state.seconds > 0 ? state.seconds - 1 : 5;
+      state.seconds = state.seconds > 0 ? state.seconds - 1 : 60;
       state.session =
         state.seconds < 1 && state.session !== 0
           ? state.session - 1
@@ -44,7 +44,7 @@ export const countSlice = createSlice({
     reset: (state) => {
       state.break = 5;
       state.session = 25;
-      state.seconds = 60;
+      state.seconds = 0;
     },
   },
 });
