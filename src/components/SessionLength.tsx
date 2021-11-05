@@ -1,10 +1,10 @@
 import React from 'react';
 import { RootState } from '../store';
 import { useSelector, useDispatch } from 'react-redux';
-import { decrementSession, incrementSession } from '../slices/countSlice';
+import { decrementSession, incrementSession } from '../slices/timerSlice';
 
 const SessionLength: React.FC = () => {
-  const sessionLenght = useSelector((state: RootState) => state.count.session);
+  const sessionLenght = useSelector((state: RootState) => state.count.sessionLenght);
   const dispatch = useDispatch();
   return (
     <>

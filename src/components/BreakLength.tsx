@@ -1,10 +1,10 @@
 import React from 'react';
 import { RootState } from '../store';
 import { useSelector, useDispatch } from 'react-redux';
-import { decrementBreak, incrementBreak } from '../slices/countSlice';
+import { decrementBreak, incrementBreak } from '../slices/timerSlice';
 
 const BreakLength: React.FC = () => {
-  const breakLenght = useSelector((state: RootState) => state.count.break);
+  const breakLenght = useSelector((state: RootState) => state.count.breakLenght);
   const dispatch = useDispatch();
   return (
     <>

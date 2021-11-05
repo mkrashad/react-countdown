@@ -1,11 +1,11 @@
 import React, { useState, useRef } from 'react';
 import { RootState } from '../store';
 import { useSelector, useDispatch } from 'react-redux';
-import { start_stop, reset } from '../slices/countSlice';
+import { start_stop, reset } from '../slices/timerSlice';
 
 const Timer: React.FC = () => {
-  const session = useSelector((state: RootState) => state.count.session);
-  const breakTime = useSelector((state: RootState) => state.count.break);
+  const session = useSelector((state: RootState) => state.count.sessionLenght);
+  const breakTime = useSelector((state: RootState) => state.count.breakLenght);
   const seconds = useSelector((state: RootState) => state.count.seconds);
 
   const audioRef = useRef<HTMLAudioElement>(null);
