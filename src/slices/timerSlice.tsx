@@ -1,9 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-export interface TimerState {
+interface TimerState {
   breakLength: number;
   sessionLength: number;
   seconds: number;
+  minutes: number;
   timerType: string;
   timerRunning: boolean;
 }
@@ -12,6 +13,7 @@ const initialState: TimerState = {
   breakLength: 5,
   sessionLength: 25,
   seconds: 0,
+  minutes: 25 * 60,
   timerType: 'Session',
   timerRunning: false,
 };
@@ -51,15 +53,13 @@ export const timerSlice = createSlice({
       state.timerType = 'Session';
       state.sessionLength =
         state.sessionLength > 0 ? state.sessionLength - 1 : state.sessionLength;
+      state.minutes = state.sessionLength * 60;
     },
     switchBreak: (state) => {
       state.timerType = 'Break';
       state.breakLength =
         state.breakLength > 0 ? state.breakLength - 1 : state.breakLength;
-    },
-    setTimer: (state) => {
-      state.sessionLength = 1;
-      state.breakLength = 1;
+      state.minutes = state.breakLength * 60;
     },
     startTimer: (state) => {
       state.timerRunning = true;
@@ -71,6 +71,7 @@ export const timerSlice = createSlice({
       state.breakLength = 5;
       state.sessionLength = 25;
       state.seconds = 0;
+      state.minutes = 25 * 60;
       state.timerType = 'Session';
       state.timerRunning = false;
     },
@@ -85,7 +86,6 @@ export const {
   decrementSession,
   switchBreak,
   switchSession,
-  setTimer,
   startTimer,
   stopTimer,
   resetTimer,
