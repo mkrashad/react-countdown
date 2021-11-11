@@ -1,34 +1,36 @@
-import React, { useState, useRef } from 'react';
+import React, { useRef, useEffect } from 'react';
 import { RootState } from '../store';
 import { useSelector, useDispatch } from 'react-redux';
-import { start_stop, reset } from '../slices/timerSlice';
+import {
+  startTimer,
+  stopTimer,
+  resetTimer,
+  decrementSeconds,
+  switchBreak,
+  switchSession,
+  setTimer,
+} from '../slices/timerSlice';
 
 const Timer: React.FC = () => {
-  const session = useSelector((state: RootState) => state.count.sessionLenght);
-  const breakTime = useSelector((state: RootState) => state.count.breakLenght);
-  const seconds = useSelector((state: RootState) => state.count.seconds);
+  const dispatch = useDispatch();
+  const sessionTime = useSelector(
+    (state: RootState) => state.countdown.sessionLength
+  );
+  const breakTime = useSelector(
+    (state: RootState) => state.countdown.breakLength
+  );
 
+  const seconds = useSelector((state: RootState) => state.countdown.seconds);
+  const timerRunning = useSelector(
+    (state: RootState) => state.countdown.timerRunning
+  );
+  const timerType = useSelector(
+    (state: RootState) => state.countdown.timerType
+  );
   const audioRef = useRef<HTMLAudioElement>(null);
 
-  const dispatch = useDispatch();
-  const [intervalId, setIntervalId] = useState<number | null>(null);
-
-  const isRunning = intervalId != null;
-  const startTimer = () => {
-    if (isRunning) {
-      window.clearInterval(intervalId);
-      setIntervalId(null);
-    } else {
-      const newIntervalId = window.setInterval(
-        () => dispatch(start_stop()),
-        1000
-      );
-      setIntervalId(newIntervalId);
-    }
-  };
-
   const formatedMinutes: number | string =
-    session < 10 ? '0' + session : session;
+    sessionTime < 10 ? '0' + sessionTime : sessionTime;
   const formatedBreak: number | string =
     breakTime < 10 ? '0' + breakTime : breakTime;
   const formatedSeconds: number | string =
@@ -36,27 +38,59 @@ const Timer: React.FC = () => {
 
   formatedMinutes === '00' && audioRef?.current?.play();
 
-  const resetTimer = () => {
+  useEffect(() => {
+    let countdown: any = null;
+    if (timerRunning && seconds > 0) {
+      countdown = window.setInterval(() => {
+        dispatch(decrementSeconds());
+      }, 1000);
+    } else if (timerRunning && seconds === 0) {
+      countdown = setInterval(() => {
+        dispatch(switchSession());
+        dispatch(decrementSeconds());
+        if (sessionTime === 0) {
+          dispatch(switchBreak());
+        }
+        if (breakTime === 0) {
+          dispatch(switchSession());
+        }
+        if (sessionTime === 0 && breakTime === 0) {
+          dispatch(setTimer());
+        }
+      }, 1000);
+    } else {
+      clearInterval(countdown);
+    }
+    return () => clearInterval(countdown);
+  }, [dispatch, timerRunning, timerType, seconds, breakTime, sessionTime]);
+
+  const handleReset = () => {
+    dispatch(resetTimer());
     const sound: any = audioRef.current;
     sound?.pause();
     sound.currentTime = 0;
-    dispatch(reset());
-    if (isRunning) {
-      window.clearInterval(intervalId);
-      setIntervalId(null);
-    }
   };
+
   return (
     <div>
-      <div id='timer-label'>{session !== 0 ? 'Session' : 'Break'}</div>
+      <div id='timer-label'>
+        {sessionTime !== 0 && seconds !== 0 ? 'Session' : 'Break'}
+      </div>
       <div id='time-left'>
         {formatedMinutes !== '00' ? formatedMinutes : formatedBreak}:
         {formatedSeconds}
       </div>
-      <button id='start_stop' onClick={startTimer}>
-        {isRunning ? 'Stop' : 'Start'}
+      <button
+        id='start_stop'
+        onClick={
+          timerRunning
+            ? () => dispatch(stopTimer())
+            : () => dispatch(startTimer())
+        }
+      >
+        {timerRunning ? 'Stop' : 'Start'}
       </button>
-      <button id='reset' onClick={resetTimer}>
+      <button id='reset' onClick={handleReset}>
         Reset
       </button>
       <audio

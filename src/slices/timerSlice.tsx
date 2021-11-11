@@ -1,17 +1,19 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 export interface TimerState {
-  breakLenght: number;
-  sessionLenght: number;
+  breakLength: number;
+  sessionLength: number;
   seconds: number;
   timerType: string;
+  timerRunning: boolean;
 }
 
 const initialState: TimerState = {
-  breakLenght: 5,
-  sessionLenght: 25,
-  seconds: 60,
+  breakLength: 5,
+  sessionLength: 25,
+  seconds: 0,
   timerType: 'Session',
+  timerRunning: false,
 };
 
 export const timerSlice = createSlice({
@@ -19,55 +21,74 @@ export const timerSlice = createSlice({
   initialState,
   reducers: {
     incrementBreak: (state) => {
-      state.breakLenght =
-        state.breakLenght === 60 ? state.breakLenght : state.breakLenght + 1;
+      state.breakLength =
+        state.breakLength === 60 || state.timerRunning
+          ? state.breakLength
+          : state.breakLength + 1;
     },
     decrementBreak: (state) => {
-      state.breakLenght =
-        state.breakLenght <= 1 ? state.breakLenght : state.breakLenght - 1;
+      state.breakLength =
+        state.breakLength <= 1 || state.timerRunning
+          ? state.breakLength
+          : state.breakLength - 1;
     },
     incrementSession: (state) => {
-      state.sessionLenght =
-        state.sessionLenght === 60
-          ? state.sessionLenght
-          : state.sessionLenght + 1;
+      state.sessionLength =
+        state.sessionLength === 60 || state.timerRunning
+          ? state.sessionLength
+          : state.sessionLength + 1;
     },
     decrementSession: (state) => {
-      state.sessionLenght =
-        state.sessionLenght <= 1
-          ? state.sessionLenght
-          : state.sessionLenght - 1;
+      state.sessionLength =
+        state.sessionLength <= 1 || state.timerRunning
+          ? state.sessionLength
+          : state.sessionLength - 1;
     },
-    start_stop: (state) => {
-      state.seconds = state.seconds > 0 ? state.seconds - 1 : 5;
-      state.sessionLenght =
-        state.seconds < 1 && state.sessionLenght !== 0
-          ? state.sessionLenght - 1
-          : state.sessionLenght;
-      state.breakLenght =
-        state.seconds < 1 &&
-        state.sessionLenght === 0 &&
-        state.breakLenght !== 0
-          ? state.breakLenght - 1
-          : state.sessionLenght === 0
-          ? 1
-          : state.breakLenght;
+    decrementSeconds: (state) => {
+      state.seconds = state.seconds > 0 ? state.seconds - 1 : 59;
     },
-    reset: (state) => {
-      state.breakLenght = 5;
-      state.sessionLenght = 25;
+    switchSession: (state) => {
+      state.timerType = 'Session';
+      state.sessionLength =
+        state.sessionLength > 0 ? state.sessionLength - 1 : state.sessionLength;
+    },
+    switchBreak: (state) => {
+      state.timerType = 'Break';
+      state.breakLength =
+        state.breakLength > 0 ? state.breakLength - 1 : state.breakLength;
+    },
+    setTimer: (state) => {
+      state.sessionLength = 1;
+      state.breakLength = 1;
+    },
+    startTimer: (state) => {
+      state.timerRunning = true;
+    },
+    stopTimer: (state) => {
+      state.timerRunning = false;
+    },
+    resetTimer: (state) => {
+      state.breakLength = 5;
+      state.sessionLength = 25;
       state.seconds = 0;
+      state.timerType = 'Session';
+      state.timerRunning = false;
     },
   },
 });
 
 export const {
+  decrementSeconds,
   incrementBreak,
   decrementBreak,
   incrementSession,
   decrementSession,
-  start_stop,
-  reset,
+  switchBreak,
+  switchSession,
+  setTimer,
+  startTimer,
+  stopTimer,
+  resetTimer,
 } = timerSlice.actions;
 
 export default timerSlice.reducer;

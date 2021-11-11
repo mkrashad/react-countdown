@@ -4,12 +4,14 @@ import { useSelector, useDispatch } from 'react-redux';
 import { decrementSession, incrementSession } from '../slices/timerSlice';
 
 const SessionLength: React.FC = () => {
-  const sessionLenght = useSelector((state: RootState) => state.count.sessionLenght);
+  const sessionLength = useSelector(
+    (state: RootState) => state.countdown.sessionLength
+  );
   const dispatch = useDispatch();
   return (
     <>
       <div id='session-label'>Session Length</div>
-      <div id='session-length'>{sessionLenght}</div>
+      <div id='session-length'>{sessionLength}</div>
       <button
         id='session-decrement'
         aria-label='Decrement session'

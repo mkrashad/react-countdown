@@ -4,12 +4,14 @@ import { useSelector, useDispatch } from 'react-redux';
 import { decrementBreak, incrementBreak } from '../slices/timerSlice';
 
 const BreakLength: React.FC = () => {
-  const breakLenght = useSelector((state: RootState) => state.count.breakLenght);
+  const breakLength = useSelector(
+    (state: RootState) => state.countdown.breakLength
+  );
   const dispatch = useDispatch();
   return (
     <>
       <div id='break-label'>Break Length</div>
-      <div id='break-length'>{breakLenght}</div>
+      <div id='break-length'>{breakLength}</div>
       <button
         id='break-decrement'
         aria-label='Decrement break'
