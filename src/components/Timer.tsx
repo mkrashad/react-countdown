@@ -23,7 +23,7 @@ const Timer: React.FC = () => {
   const seconds: number = timerSlice.seconds;
 
   useEffect(() => {
-    let countdown: any ;
+    let countdown: any;
     if (timerSlice.timerRunning && timerSlice.seconds > 0) {
       countdown = window.setInterval(() => {
         dispatch(decrementSeconds());
@@ -56,7 +56,7 @@ const Timer: React.FC = () => {
     <div>
       <div id='timer-label'>{timerSlice.timerType}</div>
       <div id='time-left'>
-        {minutes < 10 ? '0' + minutes : minutes}:
+        {minutes < 10 ? '0' + minutes : timerSlice.sessionLength}:
         {seconds < 10 ? '0' + seconds : seconds}
       </div>
       <button

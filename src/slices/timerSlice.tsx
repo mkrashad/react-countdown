@@ -22,52 +22,52 @@ export const timerSlice = createSlice({
   name: 'countdown',
   initialState,
   reducers: {
-    incrementBreak: (state: { breakLength: number; timerRunning: boolean; }) => {
+    incrementBreak: (state: TimerState) => {
       state.breakLength =
         state.breakLength === 60 || state.timerRunning
           ? state.breakLength
           : state.breakLength + 1;
     },
-    decrementBreak: (state: { breakLength: number; timerRunning: boolean; }) => {
+    decrementBreak: (state: TimerState) => {
       state.breakLength =
         state.breakLength <= 1 || state.timerRunning
           ? state.breakLength
           : state.breakLength - 1;
     },
-    incrementSession: (state: { sessionLength: number; timerRunning: boolean; }) => {
+    incrementSession: (state: TimerState) => {
       state.sessionLength =
         state.sessionLength === 60 || state.timerRunning
           ? state.sessionLength
           : state.sessionLength + 1;
     },
-    decrementSession: (state: { sessionLength: number; timerRunning: boolean; }) => {
+    decrementSession: (state: TimerState) => {
       state.sessionLength =
         state.sessionLength <= 1 || state.timerRunning
           ? state.sessionLength
           : state.sessionLength - 1;
     },
-    decrementSeconds: (state: { seconds: number; }) => {
+    decrementSeconds: (state: TimerState) => {
       state.seconds = state.seconds > 0 ? state.seconds - 1 : 59;
     },
-    switchSession: (state: { timerType: string; sessionLength: number; minutes: number; }) => {
+    switchSession: (state: TimerState) => {
       state.timerType = 'Session';
       state.sessionLength =
         state.sessionLength > 0 ? state.sessionLength - 1 : state.sessionLength;
       state.minutes = state.sessionLength;
     },
-    switchBreak: (state: { timerType: string; breakLength: number; minutes: number; }) => {
+    switchBreak: (state: TimerState) => {
       state.timerType = 'Break';
       state.breakLength =
         state.breakLength > 0 ? state.breakLength - 1 : state.breakLength;
       state.minutes = state.breakLength;
     },
-    startTimer: (state: { timerRunning: boolean; }) => {
+    startTimer: (state: TimerState) => {
       state.timerRunning = true;
     },
-    stopTimer: (state: { timerRunning: boolean; }) => {
+    stopTimer: (state: TimerState) => {
       state.timerRunning = false;
     },
-    resetTimer: (state: { breakLength: number; sessionLength: number; minutes: number; seconds: number; timerType: string; timerRunning: boolean; }) => {
+    resetTimer: (state: TimerState) => {
       state.breakLength = 5;
       state.sessionLength = 25;
       state.minutes = 25;
