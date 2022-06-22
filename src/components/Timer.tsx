@@ -19,11 +19,11 @@ const Timer: React.FC = () => {
 
   timerSlice.sessionLength === 0 && audioRef?.current?.play();
 
-  const minutes: number = timerSlice.minutes / 60;
+  const minutes: number = timerSlice.minutes;
   const seconds: number = timerSlice.seconds;
 
   useEffect(() => {
-    let countdown: any = null;
+    let countdown: any ;
     if (timerSlice.timerRunning && timerSlice.seconds > 0) {
       countdown = window.setInterval(() => {
         dispatch(decrementSeconds());

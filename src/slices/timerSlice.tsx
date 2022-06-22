@@ -12,8 +12,8 @@ interface TimerState {
 const initialState: TimerState = {
   breakLength: 5,
   sessionLength: 25,
+  minutes: 25,
   seconds: 0,
-  minutes: 25 * 60,
   timerType: 'Session',
   timerRunning: false,
 };
@@ -22,56 +22,56 @@ export const timerSlice = createSlice({
   name: 'countdown',
   initialState,
   reducers: {
-    incrementBreak: (state) => {
+    incrementBreak: (state: { breakLength: number; timerRunning: boolean; }) => {
       state.breakLength =
         state.breakLength === 60 || state.timerRunning
           ? state.breakLength
           : state.breakLength + 1;
     },
-    decrementBreak: (state) => {
+    decrementBreak: (state: { breakLength: number; timerRunning: boolean; }) => {
       state.breakLength =
         state.breakLength <= 1 || state.timerRunning
           ? state.breakLength
           : state.breakLength - 1;
     },
-    incrementSession: (state) => {
+    incrementSession: (state: { sessionLength: number; timerRunning: boolean; }) => {
       state.sessionLength =
         state.sessionLength === 60 || state.timerRunning
           ? state.sessionLength
           : state.sessionLength + 1;
     },
-    decrementSession: (state) => {
+    decrementSession: (state: { sessionLength: number; timerRunning: boolean; }) => {
       state.sessionLength =
         state.sessionLength <= 1 || state.timerRunning
           ? state.sessionLength
           : state.sessionLength - 1;
     },
-    decrementSeconds: (state) => {
+    decrementSeconds: (state: { seconds: number; }) => {
       state.seconds = state.seconds > 0 ? state.seconds - 1 : 59;
     },
-    switchSession: (state) => {
+    switchSession: (state: { timerType: string; sessionLength: number; minutes: number; }) => {
       state.timerType = 'Session';
       state.sessionLength =
         state.sessionLength > 0 ? state.sessionLength - 1 : state.sessionLength;
-      state.minutes = state.sessionLength * 60;
+      state.minutes = state.sessionLength;
     },
-    switchBreak: (state) => {
+    switchBreak: (state: { timerType: string; breakLength: number; minutes: number; }) => {
       state.timerType = 'Break';
       state.breakLength =
         state.breakLength > 0 ? state.breakLength - 1 : state.breakLength;
-      state.minutes = state.breakLength * 60;
+      state.minutes = state.breakLength;
     },
-    startTimer: (state) => {
+    startTimer: (state: { timerRunning: boolean; }) => {
       state.timerRunning = true;
     },
-    stopTimer: (state) => {
+    stopTimer: (state: { timerRunning: boolean; }) => {
       state.timerRunning = false;
     },
-    resetTimer: (state) => {
+    resetTimer: (state: { breakLength: number; sessionLength: number; minutes: number; seconds: number; timerType: string; timerRunning: boolean; }) => {
       state.breakLength = 5;
       state.sessionLength = 25;
+      state.minutes = 25;
       state.seconds = 0;
-      state.minutes = 25 * 60;
       state.timerType = 'Session';
       state.timerRunning = false;
     },
