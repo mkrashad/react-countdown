@@ -2,6 +2,8 @@ import React from 'react';
 import { RootState } from '../store';
 import { useSelector, useDispatch } from 'react-redux';
 import { decrementBreak, incrementBreak } from '../slices/timerSlice';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faPlus, faMinus } from '@fortawesome/free-solid-svg-icons'
 
 const BreakLength: React.FC = () => {
   const breakLength = useSelector(
@@ -17,14 +19,14 @@ const BreakLength: React.FC = () => {
         aria-label='Decrement break'
         onClick={() => dispatch(decrementBreak())}
       >
-        Break Decrement
+        <FontAwesomeIcon icon={faMinus} />
       </button>
       <button
         id='break-increment'
         aria-label='Increment break'
         onClick={() => dispatch(incrementBreak())}
       >
-        Break Increment
+        <FontAwesomeIcon icon={faPlus} />
       </button>
     </>
   );

@@ -2,6 +2,8 @@ import React from 'react';
 import { RootState } from '../store';
 import { useSelector, useDispatch } from 'react-redux';
 import { decrementSession, incrementSession } from '../slices/timerSlice';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faPlus, faMinus } from '@fortawesome/free-solid-svg-icons'
 
 const SessionLength: React.FC = () => {
   const sessionLength = useSelector(
@@ -17,14 +19,14 @@ const SessionLength: React.FC = () => {
         aria-label='Decrement session'
         onClick={() => dispatch(decrementSession())}
       >
-        session Decrement
+       <FontAwesomeIcon icon={faMinus} />
       </button>
       <button
         id='session-increment'
         aria-label='Increment session'
         onClick={() => dispatch(incrementSession())}
       >
-        session Increment
+        <FontAwesomeIcon icon={faPlus} />
       </button>
     </>
   );
