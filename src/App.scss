@@ -1,0 +1,36 @@
+@font-face {
+  font-family: 'DIGI';
+  src: local('DIGI'), url('./fonts/DS-DIGI.TTF') format('truetype');
+}
+html {
+  background-color: black;
+  font-family: 'DIGI';
+  margin: 0;
+  padding: 0;
+  border: 0px;
+  height: 100%;
+}
+
+footer {
+  text-align: right;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 12%;
+  margin: 1rem;
+  font-size: 1.1rem;
+  a {
+    color: #fff;
+    text-decoration: none;
+  }
+}
+.app-container {
+  width: 700px;
+  height: 500px;
+  margin: 10% auto 0 auto;
+  .break-session-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+}
