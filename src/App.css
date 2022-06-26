@@ -1,19 +1,15 @@
 .app-container {
   border: 1px solid red;
-  height:  400px;
-  width: 50%;
+  height:  600px;
+  width: 700px;
   margin: 10% auto;
 }
 
-button {
-  margin: 10px 2px;
-  /* border-bottom-left-radius: 20px;
-  border-top-left-radius: 20px; */
-  height: 50px;
-  width: 70px;
-  background-color: #008CBA;
-  color: #FFFFFF;
-  border: none;
-  font-size: 15px;
+.break-session-container{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }
+
+
 

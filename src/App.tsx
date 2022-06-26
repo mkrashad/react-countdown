@@ -7,8 +7,10 @@ import './App.css';
 const App: React.FC = () => {
   return (
     <div className='app-container'>
-      <BreakLength />
-      <SessionLength />
+      <div className='break-session-container'>
+        <SessionLength />
+        <BreakLength />
+      </div>
       <Timer />
     </div>
   );

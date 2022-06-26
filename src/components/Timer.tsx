@@ -9,6 +9,13 @@ import {
   switchBreak,
   switchSession,
 } from '../slices/timerSlice';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {
+  faPlay,
+  faStop,
+  faArrowLeftRotate,
+} from '@fortawesome/free-solid-svg-icons';
+import './styles/timer.scss';
 
 const Timer: React.FC = () => {
   const dispatch = useDispatch();
@@ -61,16 +68,21 @@ const Timer: React.FC = () => {
       </div>
       <button
         id='start_stop'
+        className='start_stop'
         onClick={
           timerSlice.timerRunning
             ? () => dispatch(stopTimer())
             : () => dispatch(startTimer())
         }
       >
-        {timerSlice.timerRunning ? 'Stop' : 'Start'}
+        {timerSlice.timerRunning ? (
+          <FontAwesomeIcon icon={faStop} />
+        ) : (
+          <FontAwesomeIcon icon={faPlay} />
+        )}
       </button>
-      <button id='reset' onClick={handleReset}>
-        Reset
+      <button id='reset' className='reset' onClick={handleReset}>
+        <FontAwesomeIcon icon={faArrowLeftRotate} />
       </button>
       <audio
         preload='auto'

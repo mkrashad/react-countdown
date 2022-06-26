@@ -1,0 +1,54 @@
+.session-column {
+  .session-label {
+    margin-top: 2rem;
+    text-align: center;
+    text-transform: uppercase;
+  }
+
+  .session-container {
+    display: flex;
+    flex-direction: row;
+    button {
+      margin: 10px 1px;
+      height: 50px;
+      width: 70px;
+      background-color: #008cba;
+      color: #ffffff;
+      border: none;
+      font-size: 15px;
+    }
+
+    button:hover {
+      background-color: #007095;
+      cursor: pointer;
+    }
+
+    .session-length {
+      margin: 10px 0;
+      height: 50px;
+      width: 70px;
+      background-color: #008cba;
+      color: #ffffff;
+      border: none;
+      font-size: 20px;
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .session-length:hover {
+      background-color: #007095;
+    }
+
+    .session-decrement {
+      border-top-left-radius: 30px;
+      border-bottom-left-radius: 30px;
+    }
+
+    .session-increment {
+      border-top-right-radius: 30px;
+      border-bottom-right-radius: 30px;
+    }
+  }
+}
