@@ -14,7 +14,7 @@ const SessionLength: React.FC = () => {
   return (
     <div className='session-column'>
       <div id='session-label' className='session-label'>
-        Session Length
+        Session
       </div>
       <div className='session-container'>
         <button

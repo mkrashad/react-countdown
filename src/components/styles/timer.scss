@@ -1,13 +1,27 @@
-.start_stop, reset {
-  border: none;
-  background-color: #ffffff;
-  svg {
-    font-size: 35px;
+.timer-container {
+  text-align: center;
+  .timer-label{
+    font-size: 3rem;
+    color: #ffffff;
+  }
+  .time-left {
+    font-size: 10rem;
     color: #008cba;
   }
-  
-  svg:hover {
-    transform: scale(1.2);
-    cursor: pointer;
+
+  .start_stop,
+  .reset {
+    border: none;
+    background-color: black;
+    svg {
+      margin-left: 2rem;
+      font-size: 3.5rem;
+      color: #008cba;
+    }
+
+    svg:hover {
+      transform: scale(1.2);
+      cursor: pointer;
+    }
   }
 }

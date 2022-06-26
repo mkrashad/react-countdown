@@ -14,7 +14,7 @@ const BreakLength: React.FC = () => {
   return (
       <div className='break-column'>
         <div id='break-label' className='break-label'>
-          Break Length
+          Break
         </div>
         <div className='break-container'>
           <button

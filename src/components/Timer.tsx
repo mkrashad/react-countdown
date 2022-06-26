@@ -60,9 +60,11 @@ const Timer: React.FC = () => {
   };
 
   return (
-    <div>
-      <div id='timer-label'>{timerSlice.timerType}</div>
-      <div id='time-left'>
+    <div className='timer-container'>
+      <div id='timer-label' className='timer-label'>
+        {timerSlice.timerType}
+      </div>
+      <div id='time-left' className='time-left'>
         {minutes < 10 ? '0' + minutes : timerSlice.sessionLength}:
         {seconds < 10 ? '0' + seconds : seconds}
       </div>
